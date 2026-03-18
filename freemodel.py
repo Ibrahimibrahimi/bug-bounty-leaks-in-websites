@@ -74,13 +74,14 @@ def getModelAnswer(query: str = "hi", randomiseToken: bool = False) -> str:
 class AIWorker(QThread):
     response_ready = pyqtSignal(str)
 
-    def __init__(self, query: str):
+    def __init__(self, query: str, randomise_token: bool = False):
         super().__init__()
         self.query = query
+        self.randomise_token = randomise_token
 
     def run(self):
         try:
-            answer = getModelAnswer(self.query)
+            answer = getModelAnswer(self.query, self.randomise_token)
             self.response_ready.emit(answer.strip() or "(empty response)")
         except Exception as e:
             self.response_ready.emit(f"[Error] {e}")
@@ -345,6 +346,68 @@ class SendButton(QPushButton):
 
 
 # ─────────────────────────────────────────────
+#  Randomise Token Toggle Button
+# ─────────────────────────────────────────────
+
+class RandomiseButton(QPushButton):
+    """Toggle button: off = dim outline, on = green filled."""
+
+    OFF_BG     = "transparent"
+    OFF_BORDER = "#252840"
+    OFF_FG     = "#6B7280"
+    ON_BG      = "#14532D"
+    ON_BORDER  = "#4ADE80"
+    ON_FG      = "#4ADE80"
+
+    def __init__(self, parent=None):
+        super().__init__("⚄  Randomize", parent)
+        self._on = False
+        self.setCursor(Qt.PointingHandCursor)
+        self.setFont(QFont("Segoe UI", 9, QFont.Bold))
+        self.setFixedHeight(30)
+        self.setCheckable(True)
+        self.toggled.connect(self._on_toggle)
+        self._apply_style()
+
+    def _on_toggle(self, checked: bool):
+        self._on = checked
+        self._apply_style()
+
+    def _apply_style(self):
+        if self._on:
+            self.setStyleSheet(f"""
+                QPushButton {{
+                    background: {self.ON_BG};
+                    color: {self.ON_FG};
+                    border: 1px solid {self.ON_BORDER};
+                    border-radius: 8px;
+                    padding: 0 12px;
+                }}
+                QPushButton:hover {{
+                    background: #166534;
+                }}
+            """)
+        else:
+            self.setStyleSheet(f"""
+                QPushButton {{
+                    background: {self.OFF_BG};
+                    color: {self.OFF_FG};
+                    border: 1px solid {self.OFF_BORDER};
+                    border-radius: 8px;
+                    padding: 0 12px;
+                }}
+                QPushButton:hover {{
+                    color: {C['text']};
+                    border-color: {C['accent']};
+                }}
+            """)
+
+    @property
+    def is_on(self) -> bool:
+        return self._on
+
+
+# ─────────────────────────────────────────────
 #  Main Window
 # ─────────────────────────────────────────────
 
@@ -357,6 +420,7 @@ class ChatWindow(QMainWindow):
         self._worker = None
         self._typing_row = None
         self._typing_dots = None
+        self._randomise_token = False
         self._setup_ui()
 
     def _setup_ui(self):
@@ -461,10 +525,15 @@ class ChatWindow(QMainWindow):
         title.setFont(QFont("Segoe UI", 12, QFont.Bold))
         title.setStyleSheet(f"color: {C['text']}; background: transparent;")
 
+        self._rand_btn = RandomiseButton()
+        self._rand_btn.toggled.connect(lambda checked: setattr(self, "_randomise_token", checked))
+
         status = QLabel("● Online")
         status.setFont(QFont("Segoe UI", 9))
         status.setStyleSheet(f"color: {C['green']}; background: transparent;")
 
+        layout.addWidget(self._rand_btn)
+        layout.addSpacing(12)
         layout.addWidget(title)
         layout.addStretch()
         layout.addWidget(status)
@@ -625,7 +694,7 @@ class ChatWindow(QMainWindow):
         self._send_btn.setEnabled(False)
         self._show_typing()
 
-        self._worker = AIWorker(text)
+        self._worker = AIWorker(text, self._randomise_token)
         self._worker.response_ready.connect(self._on_response)
         self._worker.start()
 
