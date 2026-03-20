@@ -1,0 +1,257 @@
+============================================================
+  Laravel Path Enumerator — 200 OK Results
+  Target  : https://chari.co
+  Time    : 2026-03-20 17:23:04
+============================================================
+
+[200] https://chari.co/admin/
+      ✅ 200 OK
+------------------------------------------------------------
+
+[200] https://chari.co/admin/index.php
+      ✅ 200 OK
+------------------------------------------------------------
+
+[200] https://chari.co/admin2/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/cpanel/
+      ✅ 200 OK
+         └─ Size: 33849 bytes
+      Preview: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html> <head> <meta http-equiv="Content-type" content="text/html; charset=utf-
+------------------------------------------------------------
+
+[200] https://chari.co/apc/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/controlpanel
+      ✅ 200 OK
+         └─ Size: 33824 bytes
+      Preview: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html> <head> <meta http-equiv="Content-type" content="text/html; charset=utf-
+------------------------------------------------------------
+
+[200] https://chari.co/db/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/adm/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/_index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/cpanel
+      ✅ 200 OK
+         └─ Size: 33824 bytes
+      Preview: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html> <head> <meta http-equiv="Content-type" content="text/html; charset=utf-
+------------------------------------------------------------
+
+[200] https://chari.co/controlpanel/
+      ✅ 200 OK
+         └─ Size: 33849 bytes
+      Preview: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html> <head> <meta http-equiv="Content-type" content="text/html; charset=utf-
+------------------------------------------------------------
+
+[200] https://chari.co/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/lindex.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/index.php-bak
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/kpanel/
+      ✅ 200 OK
+         └─ Size: 33849 bytes
+      Preview: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html> <head> <meta http-equiv="Content-type" content="text/html; charset=utf-
+------------------------------------------------------------
+
+[200] https://chari.co/index.php.bak
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/index.php3
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/index.php5
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/index.php4
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/mysql/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/mailman/listinfo
+      ✅ 200 OK
+         └─ Size: 1547 bytes
+      Preview: <HTML> <HEAD> <LINK REL="SHORTCUT ICON" HREF="/img-sys/mm-icon.png"> <META http-equiv="Content-Type" content="text/html; charset=us-ascii"> <TITLE>chari.co Mailing Lists</TITLE> <style type="text/css
+------------------------------------------------------------
+
+[200] https://chari.co/phpma/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/pma/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/pmamy2/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/PMA2/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/index.php~
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/PMA/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/robots.txt
+      ✅ 200 OK
+         └─ Plain text response (suspicious)
+         └─ Size: 24 bytes
+      Preview: User-agent: * Disallow:
+------------------------------------------------------------
+
+[200] https://chari.co/pmamy/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/sql/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/webmail/
+      ✅ 200 OK
+         └─ Size: 33854 bytes
+      Preview: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html> <head> <meta http-equiv="Content-type" content="text/html; charset=utf-
+------------------------------------------------------------
+
+[200] https://chari.co/tmp/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+[200] https://chari.co/webmail/src/configtest.php
+      ✅ 200 OK
+         └─ Size: 34066 bytes
+      Preview: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html> <head> <meta http-equiv="Content-type" content="text/html; charset=utf-
+------------------------------------------------------------
+
+[200] https://chari.co/pmd/index.php
+      ✅ 200 OK
+         └─ Contains keyword: 'error'
+         └─ Contains keyword: 'token'
+         └─ Size: 164247 bytes
+      Preview: <!doctype html> <html> <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack --> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-wid
+------------------------------------------------------------
+
+============================================================
+  Scan complete. Total paths scanned: 5366
+  Finished at: 2026-03-20 17:23:58
+============================================================
