@@ -17,3 +17,4 @@ in this repository , i put all bugs i found in all websites
 ## 3. Sensitive directories at **chari.com**
 - the website is made by phpmyadmin
 - leaks & access public for folders like chari.com/mysql ... 
+- results : [leaks.txt](https://github.com/Ibrahimibrahimi/bug-bounty-leaks-in-websites/blob/main/chari.com-results.txt)
