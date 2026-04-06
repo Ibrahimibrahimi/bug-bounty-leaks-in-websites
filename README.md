@@ -25,3 +25,8 @@ in this repository , i put all bugs i found in all websites
     1. Analyse the hex hash in the middle
     2. the hash origin is a _base64_ encrypted
     3. result = base64(username|unkown hash|email)
+## 5. Unsecured files found at [esta official website](ecours.esta.ac.ma)
+- the website is based on *moodle* wich is open source
+- check the files inside [.gitignore](https://github.com/moodle/moodle/blob/main/.gitignore) and test them in website directory
+- use some fuff tools to save found directories
+- 
