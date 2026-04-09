@@ -7,16 +7,53 @@ import time
 ======================= README ===========================
 Steps to make the xp_farmer works well : 
     1. create an account , or use an existant account
-    2. use the browser to extract cookies for your account so the xp goes to it
+    2. enter email and password to get the cookies (you can send this file to claude or chatgpt to verift that its safe and doesn"r send info )
     3. put it in the variable below 'COOKIE'
     4. run the file to test
 """
 
+# IMPORTANT :
+# create a test account => use its credentiels (infos) in this file
+COOKIE = "_ga=GA1.1.984846494.1775748892; _ga_PNQ0H99BWZ=GS2.1.s1775748891$o1$g1$t1775757980$j36$l0$h0;"
+email = "eldoradogpt2025@gmail.com"  # email of test account
+password = "JT1215060000"  # password of the test account
 
-# 1. setup the cookie after login , use your own cookie here (i used mine to test) ,
-# you should get the full 3 parts , or you will receuve an error :  Response Body: {"error":"Unauthorized"}
-COOKIE = "_ga=GA1.1.984846494.1775748892;" + "_ga_PNQ0H99BWZ=GS2.1.s1775748891$o1$g1$t1775750183$j57$l0$h0;" + \
-    "__Secure-cst=kPbghwJjpcBShY83b6p_U3BCmiIvQSL30CozNcGqBlEM"
+
+# extract cookie
+
+
+def get_secure_cst_cookie(email, password):
+    url = "https://cag.chessly.com/beta/login"
+    headers = {
+        "Host": "cag.chessly.com",
+        "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Referer": "https://chessly.com/",
+        "Content-Type": "application/json",
+        "Origin": "https://chessly.com",
+        "Connection": "keep-alive",
+        "Cookie": "_ga=GA1.1.984846494.1775748892; _ga_PNQ0H99BWZ=GS2.1.s1775748891$o1$g1$t1775757980$j36$l0$h0",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-site"
+    }
+    payload = {
+        "email": email,
+        "password": password
+    }
+
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()
+        cst_cookie = response.cookies.get('__Secure-cst')
+        return cst_cookie
+    except requests.RequestException as e:
+        print("Cant get cookie")
+        exit()
+
+
+COOKIE += get_secure_cst_cookie(email, password)
 
 
 # function to get all courses available on the plateform , and get their uuids
@@ -84,18 +121,23 @@ def getVariations(course_uuid):
         "Referer": "https://chessly.com/",
         "Origin": "https://chessly.com",
         "Connection": "keep-alive",
-        "Cookie": "_ga=GA1.1.984846494.1775748892; _ga_PNQ0H99BWZ=GS2.1.s1775748891$o1$g1$t1775751025$j43$l0$h0; __Secure-cst=kPbghwJjpcBShY83b6p_U3BCmiIvQSL30CozNcGqBlEM",
+        "Cookie": COOKIE,
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site",
     }
     json_data = None
     response = requests.get(url, headers=headers)
+    print(response.status_code)
+    if response.status_code == 401:
+        print("unauthorised 404")
+        exit()
     if response.status_code == 200:
         json_data = response.json()
     else:
         print(
             f"Failed to fetch variations. Status code: {response.status_code}")
+        return
 
     # json to uuids
     lesson_uuids = []
