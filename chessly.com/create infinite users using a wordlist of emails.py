@@ -1,179 +1,14 @@
+from faker import Faker
 import asyncio
 import aiohttp
+import faker
 
 url = "https://cag.chessly.com/beta/signup"
 
-# emails to create accounts with
-emails = """
-james.smith
-mary.johnson
-john.williams
-patricia.brown
-robert.jones
-jennifer.miller
-michael.davis
-linda.garcia
-william.rodriguez
-elizabeth.martin
-david.lee
-barbara.perez
-richard.thomas
-susan.taylor
-joseph.moore
-maria.jackson
-thomas.white
-james.harris
-charlotte.martin
-daniel.thompson
-sophia.garcia
-matthew.martinez
-olivia.rodriguez
-christopher.lee
-amelia.harris
-andrew.clark
-mia.lewis
-joshua.walker
-isabella.young
-brandon.king
-emily.wright
-ryan.lopez
-madison.scott
-jose.hernandez
-daniel.green
-samantha.adams
-anthony.baker
-alexander.gonzalez
-victoria.morris
-jason.nelson
-elizabeth.carter
-brian.mitchell
-karen.perez
-kevin.roberts
-sophia.lee
-michael.hill
-emily.martin
-james.moore
-lisa.white
-blake.carter
-ella.young
-david.green
-natalie.morgan
-michael.clark
-amanda.adams
-william.baker
-madeline.williams
-joseph.jenkins
-lucas.martinez
-charlotte.harris
-michael.thomas
-harper.jones
-ethan.evans
-amelia.thompson
-jackson.morris
-scarlett.brown
-mason.washington
-lily.martin
-oliver.lee
-chloe.harris
-elijah.clark
-sophia.gonzalez
-jack.ramirez
-mia.parker
-lucas.rodriguez
-amelia.sanchez
-jackson.hill
-harper.moore
-michael.taylor
-lily.campbell
-ethan.morris
-ella.williams
-mason.jones
-scarlett.martin
-oliver.brown
-chloe.anderson
-elijah.wilson
-sophia.thomas
-jackson.taylor
-mia.white
-lucas.green
-amelia.harris
-jack.ramirez
-harper.lewis
-michael.hernandez
-lily.garcia
-ethan.martin
-ella.martinez
-mason.rodriguez
-scarlett.williams
-oliver.jones
-chloe.brown
-elijah.taylor
-sophia.jackson
-jackson.miller
-mia.williams
-lucas.wilson
-amelia.anderson
-jack.ramirez
-harper.carter
-michael.young
-lily.harris
-ethan.thomas
-ella.white
-mason.jenkins
-scarlett.morris
-oliver.wright
-chloe.taylor
-elijah.anderson
-sophia.martin
-jackson.harris
-mia.jones
-lucas.brown
-amelia.williams
-jack.ramirez
-harper.wilson
-michael.green
-lily.moore
-ethan.anderson
-ella.taylor
-mason.williams
-scarlett.jones
-oliver.martin
-chloe.wright
-elijah.williams
-sophia.brown
-jackson.taylor
-mia.martin
-lucas.lee
-amelia.green
-jack.ramirez
-harper.anderson
-michael.williams
-lily.johnson
-ethan.williams
-ella.jones
-mason.martin
-scarlett.williams
-oliver.johnson
-chloe.martin
-elijah.kim
-sophia.gonzalez
-jackson.lee
-mia.taylor
-lucas.martinez
-amelia.rodriguez
-jack.ramirez
-harper.martin
-michael.taylor
-lily.wilson
-ethan.jones
-ella.sanchez
-mason.johnson
-scarlett.brown
-oliver.williams
-chloe.anderson
-elijah.wilson
-sophia.martin
-""".replace(".", "").split("\n")
+
+# Initialize the Faker object
+fake = Faker()
+emails = [fake.name() for i in range(5)]  # try less to test , more to use
 
 
 async def create_account(session, email, psw="JT1215060000"):
@@ -193,7 +28,7 @@ async def create_account(session, email, psw="JT1215060000"):
     }
 
     body = {
-        "email": f"{email}@gmail.com",
+        "email": f"{email.replace(' ','')}@gmail.com",
         "password": psw
     }
 
@@ -204,6 +39,9 @@ async def create_account(session, email, psw="JT1215060000"):
             print(status)
             if status == 204:
                 return f"\nusername : {email}  | password : {psw}"
+            if status == 429:  # baned
+                print("BANED FROM WEBSITE")
+                return
             if "error" in text:
                 print(f"ERROR : {email} ==> {text}")
     except Exception as e:
