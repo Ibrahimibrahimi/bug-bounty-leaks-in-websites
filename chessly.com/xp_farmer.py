@@ -47,7 +47,7 @@ def get_secure_cst_cookie(email, password):
         response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
         cst_cookie = response.cookies.get('__Secure-cst')
-        return cst_cookie
+        return f"__Secure-cst={cst_cookie}"
     except requests.RequestException as e:
         print("Cant get cookie")
         exit()
@@ -55,8 +55,9 @@ def get_secure_cst_cookie(email, password):
 
 COOKIE += get_secure_cst_cookie(email, password)
 
-
 # function to get all courses available on the plateform , and get their uuids
+
+
 def extractAllLessonsUUID():
     global COOKIE
     url = "https://cag.chessly.com/beta/openings/courses"
@@ -128,7 +129,7 @@ def getVariations(course_uuid):
     }
     json_data = None
     response = requests.get(url, headers=headers)
-    print(response.status_code)
+    # print(response.status_code)
     if response.status_code == 401:
         print("unauthorised 404")
         exit()
