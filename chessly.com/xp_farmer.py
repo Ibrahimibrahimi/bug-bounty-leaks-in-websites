@@ -2,6 +2,16 @@
 import requests
 import json
 
+""" 
+======================= README ===========================
+Steps to make the xp_farmer works well : 
+    1. create an account , or use an existant account
+    2. use the browser to extract cookies for your account so the xp goes to it
+    3. put it in the variable below 'COOKIE'
+    4. run the file to test
+"""
+
+
 # 1. setup the cookie after login , use your own cookie here (i used mine to test)
 COOKIE = "_ga=GA1.1.984846494.1775748892; _ga_PNQ0H99BWZ=GS2.1.s1775748891$o1$g1$t1775750183$j57$l0$h0; __Secure-cst=kPbghwJjpcBShY83b6p_U3BCmiIvQSL30CozNcGqBlEM"
 
@@ -60,6 +70,7 @@ def xp_from_lesson_part_uuid(uuid):
 # 4. function to get uuid of variations
 # -> for each lesson/opening , extract all variations , andtheir uuid
 
+
 def getVariations(course_uuid):
     url = f"https://cag.chessly.com/beta/openings/courses/{course_uuid}/variations"
     headers = {
@@ -80,7 +91,8 @@ def getVariations(course_uuid):
     if response.status_code == 200:
         json_data = response.json()
     else:
-        print(f"Failed to fetch variations. Status code: {response.status_code}")
+        print(
+            f"Failed to fetch variations. Status code: {response.status_code}")
 
     # json to uuids
     lesson_uuids = []
@@ -91,18 +103,16 @@ def getVariations(course_uuid):
     return lesson_uuids
 
 
-
 #### start process ###
 # 1. get all available lessons
 lessons = extractAllLessonsUUID()
 
 # 2. for each lesson extract the parts uuid
-for lessonUUID in lessons :
+for lessonUUID in lessons:
     parts = getVariations(lessonUUID)
     # 3. for each variation , make it as read
-    for variationUUID in parts :
+    for variationUUID in parts:
         xp_from_lesson_part_uuid(variationUUID)
-    
 
     """
         NOTE : after reading each variation of a lesson automatically ,
@@ -111,4 +121,4 @@ for lessonUUID in lessons :
         that  means the 'chessly.com' system approoved that you read the lesson , and 
         5 points of xp are added to your account statics
         NOTE : you can repeat the times of reading for every single part/variation so you gain more xp
-    """ 
+    """
