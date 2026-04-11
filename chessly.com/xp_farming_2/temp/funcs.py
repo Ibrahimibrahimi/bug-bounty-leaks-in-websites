@@ -321,6 +321,8 @@ class ChesslyClient:
             response = self._request("POST", endpoint)
             print(f"[+] UUID: {uuid} — Status: {response.status_code}")
             print(response.text)
+            
+            
 
         except requests.HTTPError as e:
             if e.response.status_code == 500:
