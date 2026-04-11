@@ -134,7 +134,6 @@ def readLesson(uuid,cookie,interval=1):
                 readLesson(var,cookie)
         else :
             print("Can't read variations => no a valid uuid")
-        
     print(f"UUID: {uuid} - Status Code: {response.status_code}")
     print("Response Body:", response.text)
 

@@ -1,5 +1,5 @@
 from funcs import getOpenningCourses, getCookies, getLegacyCourses, getProgressLesosns, readLesson
-
+import time
 
 cookies = getCookies()
 
@@ -13,4 +13,7 @@ allLessons = opLessons + LegacyLessons + progessLessons
 
 
 # start reading
-readLesson(allLessons[0], cookies)
+for lesson in range(len(allLessons)):
+    print(f"============= [{lesson}] ==========")
+    readLesson(allLessons[lesson])
+    time.sleep(1)
