@@ -2,6 +2,7 @@
 import requests , time
 
 # extract cookie
+
 def getCookies(email="eldoradogpt2025@gmail.com", password="JT1215060000"):
     COOKIE = "_ga=GA1.1.984846494.1775748892; _ga_PNQ0H99BWZ=GS2.1.s1775748891$o1$g1$t1775757980$j36$l0$h0;"
     url = "https://cag.chessly.com/beta/login"
@@ -35,7 +36,7 @@ def getCookies(email="eldoradogpt2025@gmail.com", password="JT1215060000"):
         exit()
 
 
-def getOpenningCourses(cookie: str):
+def getOpenningCourses():
     url = 'https://cag.chessly.com/beta/openings/courses'
     headers = {
         'Host': 'cag.chessly.com',
@@ -45,7 +46,7 @@ def getOpenningCourses(cookie: str):
         'Referer': 'https://chessly.com/',
         'Origin': 'https://chessly.com',
         'Connection': 'keep-alive',
-        'Cookie': cookie,
+        'Cookie': getCookies(),
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-site',
@@ -59,7 +60,7 @@ def getOpenningCourses(cookie: str):
     ids = [item['id'] for item in data]
     return ids
 
-def getLegacyCourses(cookie: str):
+def getLegacyCourses():
     url = 'https://cag.chessly.com/beta/legacy/courses'
     headers = {
         'Host': 'cag.chessly.com',
@@ -69,7 +70,7 @@ def getLegacyCourses(cookie: str):
         'Referer': 'https://chessly.com/',
         'Origin': 'https://chessly.com',
         'Connection': 'keep-alive',
-        'Cookie': cookie,
+        'Cookie': getCookies(),
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-site',
@@ -83,7 +84,7 @@ def getLegacyCourses(cookie: str):
     ids = [item['id'] for item in data]
     return ids
 
-def getProgressLesosns(cookie: str):
+def getProgressLesosns():
     url = 'https://cag.chessly.com/beta/progress/courses'
     headers = {
         'Host': 'cag.chessly.com',
@@ -93,7 +94,7 @@ def getProgressLesosns(cookie: str):
         'Referer': 'https://chessly.com/',
         'Origin': 'https://chessly.com',
         'Connection': 'keep-alive',
-        'Cookie': cookie,
+        'Cookie': getCookies(),
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-site',
@@ -108,7 +109,7 @@ def getProgressLesosns(cookie: str):
     return ids
 
 
-def readLesson(uuid,cookie,interval=1):
+def readLesson(uuid,interval=1):
     url = f"https://cag.chessly.com/beta/progress/openings/studies/variations/{uuid}/drills/completion"
     headers = {
         "Host": "cag.chessly.com",
@@ -118,7 +119,7 @@ def readLesson(uuid,cookie,interval=1):
         "Referer": "https://chessly.com/",
         "Origin": "https://chessly.com",
         "Connection": "keep-alive",
-        "Cookie": cookie,
+        "Cookie": getCookies(),
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site",
@@ -126,12 +127,12 @@ def readLesson(uuid,cookie,interval=1):
     response = requests.post(url, headers=headers)
     if response.status_code == 500 :
         print("Server Error => probably try to read varitions")
-        variations = getVariations(uuid,cookie)
+        variations = getVariations(uuid)
         if variations  :
             print(f"reading variations(found={len(variations)})...")
             for var in variations :
                 time.sleep(interval)
-                readLesson(var,cookie)
+                readLesson(var)
         else :
             print("Can't read variations => no a valid uuid")
             return
@@ -139,7 +140,7 @@ def readLesson(uuid,cookie,interval=1):
     print("Response Body:", response.text)
 
 
-def getVariations(course_uuid,cookie):
+def getVariations(course_uuid):
     url = f"https://cag.chessly.com/beta/openings/courses/{course_uuid}/variations"
     headers = {
         "Host": "cag.chessly.com",
@@ -149,7 +150,7 @@ def getVariations(course_uuid,cookie):
         "Referer": "https://chessly.com/",
         "Origin": "https://chessly.com",
         "Connection": "keep-alive",
-        "Cookie": cookie,
+        "Cookie": getCookies(),
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site",
@@ -178,11 +179,11 @@ def getVariations(course_uuid,cookie):
 
 
 # count all variations for all lessons
-def countAllLessonsVariations(cookie):
-    allCourses = getLegacyCourses(cookie) + getOpenningCourses(cookie) + getProgressLesosns(cookie)
+def countAllLessonsVariations():
+    allCourses = getLegacyCourses() + getOpenningCourses() + getProgressLesosns()
     count = 0
     for lesson in allCourses :
-        vr = getVariations(lesson,cookie)
+        vr = getVariations(lesson)
         if vr :
             count += len(vr)
     return count
