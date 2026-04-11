@@ -1,4 +1,4 @@
-from funcs import getOpenningCourses, getCookies, getLegacyCourses
+from funcs import getOpenningCourses, getCookies, getLegacyCourses, getProgressLesosns, readLesson
 
 
 cookies = getCookies()
@@ -6,7 +6,11 @@ cookies = getCookies()
 # extract all lessons
 opLessons = getOpenningCourses(cookies)
 LegacyLessons = getLegacyCourses(cookies)
+progessLessons = getProgressLesosns(cookies)
 
 # group all of them
-allLessons = opLessons + LegacyLessons
+allLessons = opLessons + LegacyLessons + progessLessons
 
+
+# start reading
+readLesson(allLessons[0], cookies)
