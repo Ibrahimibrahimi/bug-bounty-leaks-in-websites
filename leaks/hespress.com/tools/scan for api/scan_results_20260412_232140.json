@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "generated": "2026-04-12T23:21:40.791887",
+    "urls_scanned": 1,
+    "total_findings": 5,
+    "stats": {
+      "HIGH": 1,
+      "INFO": 3,
+      "MEDIUM": 1,
+      "CRITICAL": 0
+    }
+  },
+  "findings": [
+    {
+      "type": "Google API Key",
+      "severity": "HIGH",
+      "url": "https://fr.hespress.com/",
+      "detail": "Pattern matched in page source",
+      "evidence": "AIzaSyAsU7V641jM44rCy9FNrQFRAQ6UxiD0ilc"
+    },
+    {
+      "type": "Firebase DB URL",
+      "severity": "INFO",
+      "url": "https://fr.hespress.com/",
+      "detail": "Pattern matched in page source",
+      "evidence": "https://hespress-fr.firebaseio.com"
+    },
+    {
+      "type": "Generic API Key",
+      "severity": "MEDIUM",
+      "url": "https://fr.hespress.com/",
+      "detail": "Pattern matched in page source",
+      "evidence": "apiKey: \"AIzaSyAsU7V641jM44rCy9FNrQFRAQ6UxiD0ilc\""
+    },
+    {
+      "type": "Firebase Config Detected",
+      "severity": "INFO",
+      "url": "https://fr.hespress.com/",
+      "detail": "Project: hespress-fr",
+      "evidence": "{\"apiKey\": \"AIzaSyAsU7V641jM44rCy9FNrQFRAQ6UxiD0ilc\", \"authDomain\": \"hespress-fr.firebaseapp.com\", \"databaseURL\": \"https://hespress-fr.firebaseio.com\", \"projectId\": \"hespress-fr\", \"storageBucket\": \"hespress-fr.appspot.com\", \"messagingSenderId\": \"1048329321909\", \"appId\": \"1:1048329321909:web:db6a830148c723cc342dfc\"}"
+    },
+    {
+      "type": "Firebase DB (Auth Required)",
+      "severity": "INFO",
+      "url": "https://hespress-fr.firebaseio.com/.json",
+      "detail": "DB exists but requires authentication",
+      "evidence": ""
+    }
+  ]
+}

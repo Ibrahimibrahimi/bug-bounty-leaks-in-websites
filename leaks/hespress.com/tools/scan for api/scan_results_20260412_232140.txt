@@ -1,0 +1,28 @@
+WebSecretScanner Report
+Generated: 2026-04-12T23:21:40.784889
+URLs scanned: 1
+
+[HIGH] Google API Key
+  URL     : https://fr.hespress.com/
+  Detail  : Pattern matched in page source
+  Evidence: AIzaSyAsU7V641jM44rCy9FNrQFRAQ6UxiD0ilc
+
+[MEDIUM] Generic API Key
+  URL     : https://fr.hespress.com/
+  Detail  : Pattern matched in page source
+  Evidence: apiKey: "AIzaSyAsU7V641jM44rCy9FNrQFRAQ6UxiD0ilc"
+
+[INFO] Firebase DB URL
+  URL     : https://fr.hespress.com/
+  Detail  : Pattern matched in page source
+  Evidence: https://hespress-fr.firebaseio.com
+
+[INFO] Firebase Config Detected
+  URL     : https://fr.hespress.com/
+  Detail  : Project: hespress-fr
+  Evidence: {"apiKey": "AIzaSyAsU7V641jM44rCy9FNrQFRAQ6UxiD0ilc", "authDomain": "hespress-fr.firebaseapp.com", "databaseURL": "https://hespress-fr.firebaseio.com", "projectId": "hespress-fr", "storageBucket": "he
+
+[INFO] Firebase DB (Auth Required)
+  URL     : https://hespress-fr.firebaseio.com/.json
+  Detail  : DB exists but requires authentication
+
