@@ -107,6 +107,16 @@ def xp_from_lesson_part_uuid(uuid):
     response = requests.post(url, headers=headers)
     print(f"UUID: {uuid} - Status Code: {response.status_code}")
     print("Response Body:", response.text)
+    # if 5 points => re read the same lesson
+    # points
+    points = response.json()["points"]
+    if points > 0 :
+        print(f"Points > {points} ==> read again")
+        time.sleep(2)
+        xp_from_lesson_part_uuid(uuid)
+    else :
+        print("enough points ==> next lesson part")
+
 
 # 4. function to get uuid of variations
 # -> for each lesson/opening , extract all variations , andtheir uuid
@@ -154,7 +164,7 @@ def getVariations(course_uuid):
 lessons = extractAllLessonsUUID()
 
 # 2. for each lesson extract the parts uuid
-for lessonUUID in lessons:
+for lessonUUID in lessons[::-1]:
     parts = getVariations(lessonUUID)
     # 3. for each variation , make it as read
     for variationUUID in parts:
