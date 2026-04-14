@@ -1,6 +1,7 @@
 import requests
 import time
 from colorama import Fore , Style
+from cookies import COOKIE
 
 # get all openings courses
 def get_openings_courses():
@@ -13,7 +14,7 @@ def get_openings_courses():
         "Referer": "https://chessly.com/",
         "Origin": "https://chessly.com",
         "Connection": "keep-alive",
-        "Cookie": "_ga=GA1.1.772810061.1776173872; _ga_PNQ0H99BWZ=GS2.1.s1776173871$o1$g1$t1776178278$j42$l0$h0; __Secure-cst=VNtB5i6NivewW1EH6frEDor-I5oX-JEYmi5WIJC8Bg09",
+        "Cookie": COOKIE,
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site"
@@ -42,7 +43,7 @@ def extract_chapter_from_course(uuid):
         "Referer": "https://chessly.com/",
         "Origin": "https://chessly.com",
         "Connection": "keep-alive",
-        "Cookie": "_ga=GA1.1.772810061.1776173872; _ga_PNQ0H99BWZ=GS2.1.s1776173871$o1$g1$t1776178278$j42$l0$h0; __Secure-cst=VNtB5i6NivewW1EH6frEDor-I5oX-JEYmi5WIJC8Bg09",
+        "Cookie": COOKIE,
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site"
@@ -71,7 +72,7 @@ def extract_study_from_chapter(uuid):
         "Referer": "https://chessly.com/",
         "Origin": "https://chessly.com",
         "Connection": "keep-alive",
-        "Cookie": "_ga=GA1.1.772810061.1776173872; _ga_PNQ0H99BWZ=GS2.1.s1776173871$o1$g1$t1776178278$j42$l0$h0; __Secure-cst=VNtB5i6NivewW1EH6frEDor-I5oX-JEYmi5WIJC8Bg09",
+        "Cookie": COOKIE,
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site"
@@ -101,7 +102,7 @@ def extract_variation_from_study(uuid):
         "Referer": "https://chessly.com/",
         "Origin": "https://chessly.com",
         "Connection": "keep-alive",
-        "Cookie": "_ga=GA1.1.772810061.1776173872; _ga_PNQ0H99BWZ=GS2.1.s1776173871$o1$g1$t1776177282$j53$l0$h0; __Secure-cst=VNtB5i6NivewW1EH6frEDor-I5oX-JEYmi5WIJC8Bg09",
+        "Cookie": COOKIE,
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site",
@@ -131,7 +132,7 @@ def readVariation(uuid):
         "Referer": "https://chessly.com/",
         "Origin": "https://chessly.com",
         "Connection": "keep-alive",
-        "Cookie": "_ga=GA1.1.772810061.1776173872; _ga_PNQ0H99BWZ=GS2.1.s1776173871$o1$g1$t1776175581$j48$l0$h0; __Secure-cst=VNtB5i6NivewW1EH6frEDor-I5oX-JEYmi5WIJC8Bg09",
+        "Cookie": COOKIE,
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site",
