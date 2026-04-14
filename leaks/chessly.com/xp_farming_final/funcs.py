@@ -144,11 +144,12 @@ def readVariation(uuid):
         # check the points
         points = response.json().get("points", 0)
         
-        time.sleep(2)
         # print("Status Code:", response.status_code)
         if points > 0:
             # re read the lesson
             print(Fore.GREEN,"                     [o] Re Reading the same lesson " , Style.RESET_ALL)
+            time.sleep(2) # wait only if there is points
             readVariation(uuid)
         else:
             print(Fore.RED, "                    [x] no points ", Style.RESET_ALL)
+            time.sleep(1) # wait only if there is points
