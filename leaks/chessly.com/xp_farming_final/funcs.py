@@ -1,6 +1,6 @@
 import requests
 import time
-
+from colorama import Fore , Style
 
 # get all openings courses
 def get_openings_courses():
@@ -138,17 +138,17 @@ def readVariation(uuid):
     }
 
     response = requests.post(url, headers=headers)
-    print(response.status_code)
+    # print(response.status_code)
     # print("Response Body:", response.text)
     if response.status_code == 200:
         # check the points
         points = response.json().get("points", 0)
-        print("You got ", points)
+        
         time.sleep(2)
         # print("Status Code:", response.status_code)
         if points > 0:
             # re read the lesson
-            print(" Re Reading the same lesson ")
+            print(Fore.GREEN,"                     [o] Re Reading the same lesson " , Style.RESET_ALL)
             readVariation(uuid)
         else:
-            print("Enought points")
+            print(Fore.RED, "                    [x] no points ", Style.RESET_ALL)
