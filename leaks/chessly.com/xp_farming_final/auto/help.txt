@@ -1,0 +1,13 @@
+|=======================================
+|This is an auto chessly.com xp farmer  |
+|=======================================
+
+
+# Steps : 
+1. create chessly.com account
+2. place your email and password in the variables
+3. run the code : "run.py"
+
+# choices : 
+1. xp_farm for puzzles
+2. xp_farm for courses
